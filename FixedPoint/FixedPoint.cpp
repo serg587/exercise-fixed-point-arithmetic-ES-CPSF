@@ -60,6 +60,12 @@ public:
    */
   template <class TIn, TIn FracBitsIn>
   Fixp operator+(Fixp<TIn, FracBitsIn> In) {
+    assert(sizeof(T) == sizeof(TIn));
+    
+    if((T)getFracVal()==0 && In.getFracVal()==0) {
+      return Fixp<T, (T)((FracBits))>((T)Value + In.Value); 
+    }
+    return Fixp<T, (T)((std::max(FracBits, FracBitsIn)))>((T)Value + In.Value);
   }
 
   /**
@@ -74,6 +80,12 @@ public:
    */
   template <class TIn, TIn FracBitsIn>
   Fixp operator-(Fixp<TIn, FracBitsIn> In) {
+    assert(sizeof(T) == sizeof(TIn));
+    
+    if((T)getFracVal()==0 && In.getFracVal()==0) {
+      return Fixp<T, (T)((FracBits))>((T)Value - In.Value); 
+    }
+    return Fixp<T, (T)((std::max(FracBits, FracBitsIn)))>((T)Value - In.Value);
   }
 
   /**
@@ -87,6 +99,9 @@ public:
    */
   template <class TIn, TIn FracBitsIn>
   Fixp<T, FracBits + FracBitsIn> operator*(Fixp<TIn, FracBitsIn> In) {
+    assert(sizeof(T) == sizeof(TIn));
+    
+    return Fixp<T, (T)( (std::max(FracBits, FracBitsIn)) + (std::max(FracBits, FracBitsIn)) )>((T)Value * In.Value);
   }
 
   /**
