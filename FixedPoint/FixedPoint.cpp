@@ -101,7 +101,7 @@ public:
   Fixp<T, FracBits + FracBitsIn> operator*(Fixp<TIn, FracBitsIn> In) {
     assert(sizeof(T) == sizeof(TIn));
     
-    return Fixp<T, (T)( (std::max(FracBits, FracBitsIn)) + (std::max(FracBits, FracBitsIn)) )>((T)Value * In.Value);
+    return Fixp<T, (T)( FracBits + (std::max(FracBits, FracBitsIn)) )>((T)Value * In.Value);
   }
 
   /**
